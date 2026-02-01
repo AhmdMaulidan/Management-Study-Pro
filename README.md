@@ -1,68 +1,149 @@
-# CodeIgniter 4 Application Starter
+# Management Study Pro
 
-## What is CodeIgniter?
+Aplikasi manajemen tugas untuk pelajar dan mahasiswa yang dibangun dengan **CodeIgniter 4**. Aplikasi ini membantu mengelola tugas-tugas kuliah dengan fitur tracking deadline, kategorisasi kelas, dan akses bersama via PIN.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## ✨ Fitur
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+- **🔐 Autentikasi User** - Registrasi dan login dengan email & password
+- **📚 Manajemen Kelas** - Buat dan kelola kelas dengan PIN unik
+- **📝 Manajemen Tugas** - Tambah, edit, hapus tugas dengan mudah
+- **📅 Tracking Deadline** - Lihat sisa hari menuju deadline
+- **📊 Dashboard** - Ringkasan tugas aktif dan tugas terdekat
+- **👥 Guest Access** - Berbagi akses kelas via PIN ke teman sekelas
+- **📎 Upload File** - Lampirkan file ke tugas (JPG, PNG, PDF, DOCX, ZIP)
+- **🔍 Filter Kategori** - Filter tugas berdasarkan kategori kelas
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## 🛠️ Teknologi
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+- **Framework**: CodeIgniter 4.6
+- **Backend**: PHP 8.1+
+- **Database**: SQLite / MySQL
+- **Frontend**: HTML, CSS, JavaScript, Bootstrap
 
-## Installation & updates
+## 📦 Instalasi
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+### Prasyarat
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+- PHP 8.1 atau lebih tinggi
+- Composer
+- Extension PHP: intl, mbstring
 
-## Setup
+### Langkah Instalasi
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+1. **Clone repository**
 
-## Important Change with index.php
+   ```bash
+   git clone https://github.com/username/Management-Study-Pro.git
+   cd Management-Study-Pro
+   ```
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+2. **Install dependencies**
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+   ```bash
+   composer install
+   ```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+3. **Setup environment**
 
-## Repository Management
+   ```bash
+   cp env .env
+   ```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+4. **Konfigurasi database** di file `.env`:
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+   **Opsi A - SQLite (Tanpa server database):**
 
-## Server Requirements
+   ```ini
+   CI_ENVIRONMENT = development
+   app.baseURL = 'http://localhost:8080/'
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+   database.default.DBDriver = SQLite3
+   database.default.database = writable/database.db
+   ```
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+   **Opsi B - MySQL:**
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+   ```ini
+   CI_ENVIRONMENT = development
+   app.baseURL = 'http://localhost:8080/'
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+   database.default.hostname = localhost
+   database.default.database = management_study_pro
+   database.default.username = root
+   database.default.password = your_password
+   database.default.DBDriver = MySQLi
+   database.default.port = 3306
+   ```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+5. **Buat file database (untuk SQLite)**
+
+   ```bash
+   touch writable/database.db
+   ```
+
+6. **Jalankan migration**
+
+   ```bash
+   php spark migrate
+   ```
+
+7. **Jalankan development server**
+
+   ```bash
+   php spark serve
+   ```
+
+8. **Buka browser** dan akses `http://localhost:8080`
+
+## 📁 Struktur Project
+
+```
+Management-Study-Pro/
+├── app/
+│   ├── Controllers/
+│   │   ├── Auth.php           # Login & Registrasi
+│   │   ├── Dashboard.php      # Halaman Dashboard
+│   │   ├── Guest.php          # Akses Guest via PIN
+│   │   └── TugasController.php # CRUD Tugas
+│   ├── Models/
+│   │   ├── UserModel.php      # Model User
+│   │   ├── KelasModel.php     # Model Kelas
+│   │   └── TugasModel.php     # Model Tugas
+│   ├── Views/
+│   │   ├── auth/              # View Login/Register
+│   │   ├── dashboard/         # View Dashboard
+│   │   └── tugas/             # View Tugas
+│   └── Database/
+│       └── Migrations/        # Database Migrations
+├── public/                    # Public assets
+├── writable/                  # Uploads & Cache
+└── .env                       # Environment config
+```
+
+## 🔧 Penggunaan
+
+### Registrasi & Login
+
+1. Buka halaman utama
+2. Klik "Daftar Kelas" untuk membuat akun baru
+3. Login dengan email dan password
+
+### Mengelola Tugas
+
+1. Klik "Tambah Tugas" untuk membuat tugas baru
+2. Isi nama tugas, kategori kelas, deadline, dan status
+3. Upload file jika diperlukan
+4. Klik "Simpan"
+
+### Berbagi Kelas via PIN
+
+1. Bagikan PIN kelas ke teman
+2. Teman bisa mengakses daftar tugas melalui fitur "Lihat Kelas" dengan PIN
+
+## 📄 License
+
+Licensed under the [MIT License](LICENSE).
+
+## 🤝 Kontribusi
+
+Kontribusi sangat diterima! Silakan buat Pull Request atau buka Issue untuk saran dan perbaikan.
