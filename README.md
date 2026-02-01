@@ -2,6 +2,8 @@
 
 Aplikasi manajemen tugas untuk pelajar dan mahasiswa yang dibangun dengan **CodeIgniter 4**. Aplikasi ini membantu mengelola tugas-tugas kuliah dengan fitur tracking deadline, kategorisasi kelas, dan akses bersama via PIN.
 
+![image alt](https://github.com/AhmdMaulidan/Web-Tes-RMIB/blob/bd11bb254f4d61489a6cb15b49fff41786382651/img%20example.png)
+
 ## ✨ Fitur
 
 - **🔐 Autentikasi User** - Registrasi dan login dengan email & password
